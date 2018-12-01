@@ -22,7 +22,7 @@ class CreateReportsUserFavoriteRefsTable extends Migration
             $table->boolean('del_flag')->default(0);
 
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('report_id')->references('id')->on('talents');
+            $table->foreign('report_id')->references('id')->on('reports');
         });
     }
 
