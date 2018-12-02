@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
@@ -47,7 +48,7 @@ class AuthController extends Controller
         {
             return response()->json([
                 'errors' => [
-                    'email' => ['There is something wrong! We could not verify details']
+                    'email' => ['メールアドレスを確認してください。']
                 ]], 422);
         }
 
