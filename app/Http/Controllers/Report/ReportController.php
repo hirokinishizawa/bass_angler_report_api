@@ -10,7 +10,7 @@ class ReportController extends Controller
 {
     public function index(Report $report)
     {
-
+        return $report;
     }
 
     public function post(Request $request)
