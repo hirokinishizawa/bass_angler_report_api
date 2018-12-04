@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Api;
 
 use App\User;
 use Illuminate\Http\Request;
@@ -62,6 +62,7 @@ class AuthController extends Controller
 
     public function user(Request $request)
     {
+        dd(auth()->user());
         return new UserResource($request->user());
     }
 }
