@@ -59,10 +59,4 @@ class AuthController extends Controller
                 ]
             ]);
     }
-
-    public function user(Request $request)
-    {
-        dd(auth()->user());
-        return new UserResource($request->user());
-    }
 }

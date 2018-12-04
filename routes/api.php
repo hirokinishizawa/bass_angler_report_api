@@ -17,7 +17,9 @@ Route::post('register', 'AuthController@register')->name('register');
 Route::post('login', 'AuthController@login')->name('login');
 
 Route::group(['middleware' => ['auth:api']], function () {
-    Route::get('user', 'AuthController@user');
+    Route::get('/me', 'User\AuthController@me');
+    Route::get('/user', 'User\AuthController@user');
     Route::get('/report', 'Report\ReportController@index')->name('report');
     Route::post('/report', 'Report\ReportController@post')->name('report-post');
+    Route::get('/my-report', 'Report\ReportController@myReport')->name('my-report');
 });

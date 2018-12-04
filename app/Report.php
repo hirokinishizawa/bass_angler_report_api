@@ -9,6 +9,8 @@ class Report extends Model
 
     protected $userClass = User::class;
 
+    protected $with = ['user'];
+
     protected $fillable = ['size', 'prefecture', 'address', 'description', 'user_id'];
 
     public function user()
