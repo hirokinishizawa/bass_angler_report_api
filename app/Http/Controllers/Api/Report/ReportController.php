@@ -12,9 +12,8 @@ class ReportController extends Controller
 {
     public function index()
     {
-        $reports = Report::all();
-        $sorted = $reports->sortByDesc('created_at');
-        return $sorted->values()->all();
+        $reports = Report::orderBy('created_at', 'desc')->paginate(15);
+        return $reports;
     }
 
     public function myReport(Request $request)

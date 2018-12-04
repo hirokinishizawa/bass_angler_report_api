@@ -14,16 +14,18 @@ class AuthController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|unique:users,email|email',
+            'account' => 'required|unique:users|alpha_dash',
             'password' => 'required'
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'account' => $request->account,
             'password' => bcrypt($request->password)
         ]);
 
-        if(!$token = auth()->attempt($request->only(['email', 'password'])))
+        if(!$token = auth()->attempt($request->only(['account', 'password'])))
         {
             return abort(401);
         }
@@ -37,15 +39,15 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $this->validate($request, [
-            'email' => 'required',
+            'account' => 'required',
             'password' => 'required'
         ]);
 
-        if(!$token = auth()->attempt($request->only(['email', 'password'])))
+        if(!$token = auth()->attempt($request->only(['account', 'password'])))
         {
             return response()->json([
                 'errors' => [
-                    'email' => ['メールアドレスを確認してください。']
+                    'account' => ['入力情報に誤りがあります']
                 ]], 422);
         }
 
