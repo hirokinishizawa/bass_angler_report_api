@@ -41,6 +41,6 @@ class ReportController extends Controller
         $report->description = $request->description;
         $report->user_id = $request->user()->id;
         $report->save();
-        return $report;
+        return $report->load('user');
     }
 }
