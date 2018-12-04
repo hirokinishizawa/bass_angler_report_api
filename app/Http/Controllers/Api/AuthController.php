@@ -6,7 +6,6 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
-use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
@@ -31,9 +30,7 @@ class AuthController extends Controller
 
         return (new UserResource($user))
             ->additional([
-                'meta' => [
-                    'token' => $token
-                ]
+                'token' => $token
             ]);
     }
 
@@ -54,9 +51,7 @@ class AuthController extends Controller
 
         return (new UserResource($request->user()))
             ->additional([
-                'meta' => [
-                    'token' => $token
-                ]
+                'token' => $token
             ]);
     }
 }
