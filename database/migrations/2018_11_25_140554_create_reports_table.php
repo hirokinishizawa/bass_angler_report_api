@@ -20,6 +20,7 @@ class CreateReportsTable extends Migration
             $table->string('address', 100);
             $table->string('description', 100);
             $table->unsignedInteger('user_id');
+            $table->integer('goods_count')->default(0);
             $table->boolean('del_flag')->default(0);
             $table->timestamps();
 
