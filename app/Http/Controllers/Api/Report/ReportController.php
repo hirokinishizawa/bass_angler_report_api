@@ -18,7 +18,10 @@ class ReportController extends Controller
             $good = $report->goods()->where('user_id', auth()->user()->id)->first();
             array_push($array,['report' => $report, 'good' => $good]);
         }
-        return $array;
+        return [
+            'data' => $array,
+            'meta' => Report::paginate()
+        ];
     }
 
     public function myReport(Request $request)
