@@ -12,6 +12,8 @@ class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
+    protected $goodClass = Good::class;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -38,5 +40,9 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+    public function likes()
+    {
+        return $this->hasMany($this->goodClass);
     }
 }

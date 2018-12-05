@@ -12,8 +12,13 @@ class ReportController extends Controller
 {
     public function index()
     {
+        $array = [];
         $reports = Report::orderBy('created_at', 'desc')->paginate(15);
-        return $reports;
+        foreach($reports as $report) {
+            $good = $report->goods()->where('user_id', auth()->user()->id)->first();
+            array_push($array,['report' => $report, 'good' => $good]);
+        }
+        return $array;
     }
 
     public function myReport(Request $request)
@@ -42,5 +47,14 @@ class ReportController extends Controller
         $report->user_id = $request->user()->id;
         $report->save();
         return $report->load('user');
+    }
+
+    public function show(int $id)
+    {
+        $report = Report::findOrFail($id);
+
+        $good = $report->goods()->where('user_id', auth()->user()->id)->first();
+
+        return ['report' => $report, 'good' => $good];
     }
 }
