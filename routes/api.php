@@ -23,6 +23,6 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('/report', 'Report\ReportController@post')->name('report-post');
     Route::get('/my-report', 'Report\ReportController@myReport')->name('my-report');
     Route::get('/report/{report}', 'Report\ReportController@show')->name('report-show');
-    Route::post('/report/{report}/good', 'Report\GoodsController@store')->name('good-store');
-    Route::post('/report/{report}/good/{good}', 'Report\GoodsController@destroy')->name('good-destroy');
+    Route::post('/report/{report}/good', 'Report\GoodsController@store')->name('report-good-store');
+    Route::post('/report/{report}/good/{good}', 'Report\GoodsController@destroy')->name('report-good-destroy');
 });

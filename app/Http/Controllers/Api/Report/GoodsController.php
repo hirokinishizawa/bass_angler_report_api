@@ -20,8 +20,9 @@ class GoodsController extends Controller
 
 
         $report = Report::findOrFail($reportId);
+        $good = $report->goods()->where('user_id', auth()->user()->id)->first();
 
-        return $report;
+        return ['report' => $report, 'good' => $good];
     }
     public function destroy($reportId, $goodId) {
         $report = Report::findOrFail($reportId);
