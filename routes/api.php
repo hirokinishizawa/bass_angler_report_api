@@ -25,4 +25,5 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('/report/{report}', 'Report\ReportController@show')->name('report-show');
     Route::post('/report/{report}/good', 'Report\GoodsController@store')->name('report-good-store');
     Route::post('/report/{report}/good/{good}', 'Report\GoodsController@destroy')->name('report-good-destroy');
+    Route::post('/image', 'ImageController@store')->name('image-store');
 });

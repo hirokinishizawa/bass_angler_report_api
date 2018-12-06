@@ -7,6 +7,7 @@ use App\Report;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Intervention\Image\Facades\Image;
 
 class ReportController extends Controller
 {
@@ -41,6 +42,7 @@ class ReportController extends Controller
             'prefectures' => 'required',
             'address' => 'required'
         ]);
+
 
         $report = new Report();
         $report->size = $request->size;
