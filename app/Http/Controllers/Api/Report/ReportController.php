@@ -25,6 +25,17 @@ class ReportController extends Controller
         ];
     }
 
+    public function goodRanking()
+    {
+        $array = [];
+        $reports = Report::orderBy('goods_count', 'desc')->limit(4)->get();
+        foreach($reports as $report) {
+            $good = $report->goods()->where('user_id', auth()->user()->id)->first();
+            array_push($array,['report' => $report, 'good' => $good]);
+        }
+        return $array;
+    }
+
     public function myReport(Request $request)
     {
         $user = new UserResource($request->user());
@@ -51,7 +62,10 @@ class ReportController extends Controller
         $report->description = $request->description;
         $report->user_id = $request->user()->id;
         $report->save();
-        return $report->load('user');
+
+        $good = $report->goods()->where('user_id', auth()->user()->id)->first();
+
+        return ['report' => $report->load('user'), 'good' => $good];
     }
 
     public function show(int $id)
