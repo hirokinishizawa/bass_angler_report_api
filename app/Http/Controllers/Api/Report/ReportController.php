@@ -76,4 +76,18 @@ class ReportController extends Controller
 
         return ['report' => $report, 'good' => $good];
     }
+
+    public function upload(Request $request)
+    {
+        $params = $request->validate([
+            'image_filename' => 'required|file|image|max:4000',
+        ]);
+
+        $file = $params['image_filename'];
+
+        $image = \Image::make(file_get_contents($file->getRealPath()));
+        $image->save(public_path().'/images/'.$file->hashName());
+
+        return redirect('/images/'.$file->hashName());
+    }
 }
