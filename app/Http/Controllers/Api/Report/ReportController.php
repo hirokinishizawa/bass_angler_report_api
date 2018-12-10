@@ -60,6 +60,7 @@ class ReportController extends Controller
         $report->prefectures = $request->prefectures;
         $report->address = $request->address;
         $report->description = $request->description;
+        $report->image_filename = $request->image_filename;
         $report->user_id = $request->user()->id;
         $report->save();
 
@@ -84,10 +85,9 @@ class ReportController extends Controller
         ]);
 
         $file = $params['image_filename'];
-
         $image = \Image::make(file_get_contents($file->getRealPath()));
         $image->save(public_path().'/images/'.$file->hashName());
 
-        return redirect('/images/'.$file->hashName());
+        return $file->hashName();
     }
 }
