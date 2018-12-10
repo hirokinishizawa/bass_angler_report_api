@@ -14,42 +14,30 @@ class ReportController extends Controller
 {
     public function index()
     {
-        $array = [];
         $reports = Report::orderBy('created_at', 'desc')->paginate(15);
         foreach($reports as $report) {
-            $good = $report->goods()->where('user_id', auth()->user()->id)->first();
-            array_push($array,['report' => $report, 'good' => $good]);
+            $report->good = $report->goods()->where('user_id', auth()->user()->id)->first();
         }
-        return [
-            'data' => $array,
-            'meta' => Report::paginate()
-        ];
+        return $reports;
     }
 
     public function goodRanking()
     {
-        $array = [];
         $reports = Report::orderBy('goods_count', 'desc')->limit(4)->get();
         foreach($reports as $report) {
-            $good = $report->goods()->where('user_id', auth()->user()->id)->first();
-            array_push($array,['report' => $report, 'good' => $good]);
+            $report->good = $report->goods()->where('user_id', auth()->user()->id)->first();
         }
-        return $array;
+        return $reports;
     }
 
-    public function myReport(Request $request)
+    public function myReport()
     {
-        $array = [];
         $user_id = auth()->user()->id;
         $reports = Report::where('user_id', $user_id)->orderBy('created_at', 'desc')->paginate(15);
         foreach($reports as $report) {
-            $good = $report->goods()->where('user_id', auth()->user()->id)->first();
-            array_push($array,['report' => $report, 'good' => $good]);
+            $report->good = $report->goods()->where('user_id', auth()->user()->id)->first();
         }
-        return [
-            'data' => $array,
-            'meta' => Report::paginate()
-        ];
+        return $reports;
     }
 
     public function post(Request $request)
@@ -69,18 +57,18 @@ class ReportController extends Controller
         $report->user_id = $request->user()->id;
         $report->save();
 
-        $good = $report->goods()->where('user_id', auth()->user()->id)->first();
+        $report->good = $report->goods()->where('user_id', auth()->user()->id)->first();
 
-        return ['report' => $report->load('user'), 'good' => $good];
+        return $report->load('user');
     }
 
     public function show(int $id)
     {
         $report = Report::findOrFail($id);
 
-        $good = $report->goods()->where('user_id', auth()->user()->id)->first();
+        $report->good = $report->goods()->where('user_id', auth()->user()->id)->first();
 
-        return ['report' => $report, 'good' => $good];
+        return $report;
     }
 
     public function upload(Request $request)
