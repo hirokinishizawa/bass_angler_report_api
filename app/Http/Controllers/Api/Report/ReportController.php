@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Report;
 
 use App\Http\Resources\UserResource;
 use App\Report;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -38,13 +39,17 @@ class ReportController extends Controller
 
     public function myReport(Request $request)
     {
-        $user = new UserResource($request->user());
-        $reports = Report::all();
-        $filtered = $reports->filter(function ($value) use($user) {
-            return $value->user_id === $user->id;
-        });
-        $sorted = $filtered->sortByDesc('created_at');
-        return $sorted->values()->all();
+        $array = [];
+        $user_id = auth()->user()->id;
+        $reports = Report::where('user_id', $user_id)->orderBy('created_at', 'desc')->paginate(15);
+        foreach($reports as $report) {
+            $good = $report->goods()->where('user_id', auth()->user()->id)->first();
+            array_push($array,['report' => $report, 'good' => $good]);
+        }
+        return [
+            'data' => $array,
+            'meta' => Report::paginate()
+        ];
     }
 
     public function post(Request $request)
