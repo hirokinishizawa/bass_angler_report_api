@@ -13,6 +13,7 @@ class User extends Authenticatable implements JWTSubject
     use Notifiable;
 
     protected $goodClass = Good::class;
+    protected $reportClass = Report::class;
 
     /**
      * The attributes that are mass assignable.
@@ -44,5 +45,9 @@ class User extends Authenticatable implements JWTSubject
     public function likes()
     {
         return $this->hasMany($this->goodClass);
+    }
+    public function reports()
+    {
+        return $this->hasMany($this->reportClass);
     }
 }

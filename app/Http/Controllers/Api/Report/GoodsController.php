@@ -17,17 +17,17 @@ class GoodsController extends Controller
                 'report_id' => $reportId
             )
         );
-
-
         $report = Report::findOrFail($reportId);
-        $good = $report->goods()->where('user_id', auth()->user()->id)->first();
 
-        return ['report' => $report, 'good' => $good];
+        $report->good = $report->goods()->where('user_id', auth()->user()->id)->first();
+
+        return $report;
     }
     public function destroy($reportId, $goodId) {
         $report = Report::findOrFail($reportId);
         $report->good_by()->findOrFail($goodId)->delete();
         $report = Report::findOrFail($reportId);
+        $report->good = $report->goods()->where('user_id', auth()->user()->id)->first();
 
         return $report;
     }

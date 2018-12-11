@@ -18,9 +18,10 @@ class CreateReportsTable extends Migration
             $table->integer('size');
             $table->string('prefectures', 100);
             $table->string('address', 100);
-            $table->string('description', 100);
-            $table->unsignedInteger('user_id');
+            $table->string('description', 100)->nullable();
+            $table->string('image_filename', 100)->nullable();
             $table->integer('goods_count')->default(0);
+            $table->unsignedInteger('user_id');
             $table->boolean('del_flag')->default(0);
             $table->timestamps();
 

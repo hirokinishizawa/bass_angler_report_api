@@ -21,6 +21,8 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('/user', 'User\UserController@user');
     Route::get('/report', 'Report\ReportController@index')->name('report');
     Route::post('/report', 'Report\ReportController@post')->name('report-post');
+    Route::get('/report/ranking', 'Report\ReportController@goodRanking')->name('report-goodRanking');
+    Route::post('/report/upload', 'Report\ReportController@upload')->name('report-goodRanking');
     Route::get('/my-report', 'Report\ReportController@myReport')->name('my-report');
     Route::get('/report/{report}', 'Report\ReportController@show')->name('report-show');
     Route::post('/report/{report}/good', 'Report\GoodsController@store')->name('report-good-store');
