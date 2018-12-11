@@ -15,6 +15,7 @@
 
 Route::post('register', 'AuthController@register')->name('register');
 Route::post('login', 'AuthController@login')->name('login');
+Route::post('logout', 'AuthController@logout')->name('logout');
 
 Route::group(['middleware' => ['auth:api']], function () {
     Route::get('/me', 'User\UserController@me');
